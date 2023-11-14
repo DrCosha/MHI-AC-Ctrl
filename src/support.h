@@ -2,23 +2,28 @@
 
 #include "MHI-AC-Ctrl-core.h"
 #include "MHI-AC-Ctrl.h"
+#include "local.h"
 
 #define VERSION "2.7R4"
 
-#define WIFI_SSID ""
-#define WIFI_PASSWORD ""
-#define HOSTNAME "MHI-AC-Ctrl"
+#ifndef LOCAL
+
+#define WIFI_SSID "wifi_ssid"
+#define WIFI_PASSWORD "wifi_pwd"
+#define MQTT_SERVER "mqtt_serv_host"                // broker name or IP address of the broker
+#define MQTT_PORT 1883                              // port number used by the broker
+#define MQTT_USER "mqtt_user_name"                  // if authentication is not used, leave it empty
+#define MQTT_PASSWORD "mqtt_user_pwd"               // if authentication is not used, leave it empty
+#define HOSTNAME "MHI_host_name"
+
+#endif
 
 #define WiFI_SEARCHStrongestAP true                 // when false then the first WiFi access point with matching SSID found is used.
                                                     // when true then the strongest WiFi access point with matching SSID found is used, it doesn't work with hidden SSID
                                                     
 #define WiFI_SEARCH_FOR_STRONGER_AP_INTERVALL 12    // WiFi network re-scan interval in minutes with alternate to +5dB stronger signal if detected
 
-#define MQTT_SERVER "192.168.178.111"               // broker name or IP address of the broker
-#define MQTT_PORT 1883                              // port number used by the broker
-#define MQTT_USER ""                                // if authentication is not used, leave it empty
-#define MQTT_PASSWORD ""                            // if authentication is not used, leave it empty
-#define MQTT_PREFIX HOSTNAME "/"                    // basic prefix used for publishing AC data (e.g. for status),
+#define MQTT_PREFIX HOSTNAME "MHI_ROOM1/"           // basic prefix used for publishing AC data (e.g. for status),
                                                     // replace "/" by e.g. "/Living-Room/" when you have multiple ACs
 #define MQTT_SET_PREFIX MQTT_PREFIX "set/"          // prefix for subscribing set commands, must end with a "/"
 #define MQTT_OP_PREFIX MQTT_PREFIX "OpData/"        // prefix for publishing operating data, must end with a "/"
