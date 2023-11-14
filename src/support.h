@@ -6,7 +6,7 @@
 
 #define VERSION "2.7R4"
 
-#ifndef LOCAL
+#ifndef LOCAL_SECRETS
 
 #define WIFI_SSID "wifi_ssid"
 #define WIFI_PASSWORD "wifi_pwd"

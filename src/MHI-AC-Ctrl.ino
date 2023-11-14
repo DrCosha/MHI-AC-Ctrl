@@ -413,7 +413,11 @@ void setup() {
 
 
 void loop() {
-  static byte ds18x20_value_old = 0;
+
+#if ROOM_TEMP_DS18X20
+  static byte ds18x20_value_old = 0;  
+#endif
+
   static int WiFiStatus = WIFI_CONNECT_TIMEOUT;   // start connecting to WiFi
   static int MQTTStatus = MQTT_NOT_CONNECTED;
   static unsigned long previousMillis = millis();
