@@ -15,23 +15,19 @@
 #define MQTT_USER "mqtt_user_name"                  // if authentication is not used, leave it empty
 #define MQTT_PASSWORD "mqtt_user_pwd"               // if authentication is not used, leave it empty
 #define HOSTNAME "MHI_host_name"
+#define MQTT_PREFIX "HOME_AC_GROUP/" HOSTNAME "/"   // basic prefix used for publishing AC data (e.g. for status),
+                                                    // replace "/" by e.g. "/Living-Room/" when you have multiple ACs
 
 #endif
 
 #define WiFI_SEARCHStrongestAP true                 // when false then the first WiFi access point with matching SSID found is used.
-                                                    // when true then the strongest WiFi access point with matching SSID found is used, it doesn't work with hidden SSID
-                                                    
+                                                    // when true then the strongest WiFi access point with matching SSID found is used, it doesn't work with hidden SSID                                                
 #define WiFI_SEARCH_FOR_STRONGER_AP_INTERVALL 12    // WiFi network re-scan interval in minutes with alternate to +5dB stronger signal if detected
-
-#define MQTT_PREFIX HOSTNAME "MHI_ROOM1/"           // basic prefix used for publishing AC data (e.g. for status),
-                                                    // replace "/" by e.g. "/Living-Room/" when you have multiple ACs
 #define MQTT_SET_PREFIX MQTT_PREFIX "set/"          // prefix for subscribing set commands, must end with a "/"
 #define MQTT_OP_PREFIX MQTT_PREFIX "OpData/"        // prefix for publishing operating data, must end with a "/"
 #define MQTT_ERR_OP_PREFIX MQTT_PREFIX "ErrOpData/" // prefix for publishing operating data from last error, must end with a "/"
-
 #define OTA_HOSTNAME HOSTNAME                       // default for the OTA_HOSTNAME is the HOSTNAME
 #define OTA_PASSWORD ""                             // Enter an OTA password if required
-
 #define TEMP_MEASURE_PERIOD 0                       // period in seconds for temperature measurement with the external DS18x20 temperature sensor
                                                     // enter 0 if you don't use the DS18x20 
 #define ONE_WIRE_BUS 4                              // D2, PIN for connecting temperature sensor DS18x20 DQ pin

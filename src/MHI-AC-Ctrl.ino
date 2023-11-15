@@ -397,6 +397,11 @@ void setup() {
   Serial.printf("ESP.getCoreVersion()=%s\n", ESP.getCoreVersion().c_str());
   Serial.printf("ESP.getSdkVersion()=%s\n", ESP.getSdkVersion());
   Serial.printf("ESP.checkFlashCRC()=%i\n", ESP.checkFlashCRC());
+  Serial.print("Host name: ");
+  Serial.println(HOSTNAME);
+  Serial.print("Base MQTT topic: ");
+  Serial.println(MQTT_PREFIX);
+  Serial.println();
 
 #if TEMP_MEASURE_PERIOD > 0
   setup_ds18x20();
