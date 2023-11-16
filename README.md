@@ -38,7 +38,7 @@ If you find out that also other models are supported that are not listed here, p
 Оригинальное устройство собиралось автором на тестовой плате ***WEMOS-D1-MINI***. Текущая ветка устройства была переработана в части аппаратной части и переведена на модуль ***ESP-WROOM-02U***. Была создана собственная версия печатной платы, с сохранением 
 совместимости прошивки по используемым GPIO.
 
-<img src="/images/MHI_adapter_HW3.png" width=200 align="right" />
+<img src="/images/MHI_adapter_HW3.png" width=400 align="right" />
 
 Более детальная информация изложена в [Hardware.md](Hardware.md).
 
