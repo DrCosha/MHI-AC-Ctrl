@@ -4,11 +4,17 @@ The following descriptions address:
 2. Advanced settings for other frameworks (e.g. Tasmota, Home Assistant, Homie)
 3. Integration examples
 
+# Изменения в ветке
+Конфигурация вынесена в отдельный файл ***local.h***. Туда вынесены все локальные пароли и адреса.  Достаточно закомментировать строку
+#include "local.h" в файле [support.h](src/support.h) и после этого компилятор будет использовать внутренние объявления в коде. Описание которых приведено ниже.
+
 # Basic settings
 The basic settings will be adapted in three files:   
  - [support.h](src/support.h) for general settings related to WiFi, MQTT, OTA and the external temperature sensor DS18x20
  - [MHI-AC-Ctrl.h](src/MHI-AC-Ctrl.h) for input / output settings (i.e. topic / payload text)
  - [MHI-AC-Ctrl-core.h](src/MHI-AC-Ctrl-core.h) for settings related to the behaviour of MHI-AC-Ctrl (e.g. selection of operating data)
+
+
 
 ## WiFi ([support.h](src/support.h))
 WiFi STA mode is supported.
