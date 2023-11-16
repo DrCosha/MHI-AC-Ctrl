@@ -1,4 +1,5 @@
 # Hardware
+:warning: **This part of documentation under changes!** :warning:
 
 ## Schematic
 ![schematic](Hardware/PCB_MHI_adapter_HW4-circuit_diagram.png)
