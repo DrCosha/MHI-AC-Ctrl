@@ -40,7 +40,10 @@ If you find out that also other models are supported that are not listed here, p
 
 <img src="/images/MHI_adapter_HW3.png" width=400 align="right" />
 
-Более детальная информация изложена в [Hardware.md](Hardware.md).
+The original device was assembled by the author on the ***WEMOS-D1-MINI*** test board. The current branch of the device has been redesigned in terms of hardware and transferred to the ***ESP-WROOM-02U*** module. We created our own version of the printed circuit board, 
+preserving firmware compatibility for used GPIOs.
+
+More information you can finde in [Hardware.md](Hardware.md).
 
 ## Software:
 The program uses the following libraries
