@@ -1,10 +1,10 @@
 # Hardware
 
 ## Schematic
-![schematic](images/MHI-AC-Ctrl_Schematic.png)
+![schematic](Hardware/PCB_MHI_adapter_HW4-circuit_diagram.png)
 
-## PCB (Eagle)
-![PCB](images/PCB.png)
+## PCB (EasyEDA)
+![PCB](Hardware/PCB_MHI_adapter_HW4-top_layer.png)
 
 You find the eagle schematic and the layout in the [eagle folder](eagle). The Gerber data is in [MHI-AC-Ctrl_v2.2_2021-01-22.zip](eagle/Gerber/MHI-AC-Ctrl_v2.2_2021-01-22.zip). I used this Gerber data for the PCB order at [JLCPCB](https://jlcpcb.com).
 
