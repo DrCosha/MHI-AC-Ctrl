@@ -4,9 +4,12 @@ The following descriptions address:
 2. Advanced settings for other frameworks (e.g. Tasmota, Home Assistant, Homie)
 3. Integration examples
 
-# Изменения в ветке
+# Changes in fork (Изменения в ветке)
 Конфигурация вынесена в отдельный файл ***local.h***. Туда вынесены все локальные пароли и адреса.  Достаточно закомментировать строку
 #include "local.h" в файле [support.h](src/support.h) и после этого компилятор будет использовать внутренние объявления в коде. Описание которых приведено ниже.
+
+The configuration is placed in a separate file ***local.h***. All local passwords and addresses are listed there. It is enough to comment 
+out the line #include "local.h" in the [support.h](src/support.h) file and after that the compiler will use internal declarations in the code. The description of which is given below.
 
 # Basic settings
 The basic settings will be adapted in three files:   
