@@ -28,7 +28,7 @@ void MeasureFrequency() {  // measure the frequency on the pins
   pinMode(SCK_PIN, INPUT);
   pinMode(MOSI_PIN, INPUT);
   pinMode(MISO_PIN, INPUT);
-  Serial.println(F("Measure frequency for SCK, MOSI and MISO pin"));
+  Serial.println("Measure frequency for SCK, MOSI and MISO pin");
   attachInterrupt(digitalPinToInterrupt(SCK_PIN), handleInterrupt_SCK, RISING);
   attachInterrupt(digitalPinToInterrupt(MOSI_PIN), handleInterrupt_MOSI, RISING);
   attachInterrupt(digitalPinToInterrupt(MISO_PIN), handleInterrupt_MISO, RISING);
