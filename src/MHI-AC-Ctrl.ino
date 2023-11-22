@@ -430,13 +430,13 @@ void loop() {
   if (((WiFi.status() != WL_CONNECTED)  || 
        (WiFiStatus != WIFI_CONNECT_OK)) || 
        (WiFI_SEARCHStrongestAP && (millis() - previousMillis >= WiFI_SEARCH_FOR_STRONGER_AP_INTERVALL*60*1000))) {
-    Serial.printf("loop: call setupWiFi(WiFiStatus)\n");
+//    Serial.printf("loop: call setupWiFi(WiFiStatus)\n");
     setupWiFi(WiFiStatus);
     previousMillis = millis();
-    Serial.println(WiFiStatus);
+//    Serial.println(WiFiStatus);
   }
   else {
-    Serial.printf("loop: WiFi.status()=%i\n", WiFi.status()); // see https://realglitch.com/2018/07/arduino-wifi-status-codes/
+//    Serial.printf("loop: WiFi.status()=%i\n", WiFi.status()); // see https://realglitch.com/2018/07/arduino-wifi-status-codes/
     MQTTStatus=MQTTreconnect();
     if (MQTTStatus == MQTT_RECONNECTED)
       mhi_ac_ctrl_core.reset_old_values();  // after a reconnect
@@ -472,11 +472,11 @@ void loop() {
 #ifndef CONTINUE_WITHOUT_MQTT 
   if((MQTTStatus==MQTT_RECONNECTED) || (MQTTStatus==MQTT_CONNECT_OK)){
 #endif    
-    Serial.println("MQTT connected in main loop");
+//    Serial.println("MQTT connected in main loop");
     int ret = mhi_ac_ctrl_core.loop(80);
     if (ret < 0)
       Serial.printf_P(PSTR("mhi_ac_ctrl_core.loop error: %i\n"), ret);
-    else Serial.println("MHI main loop status - correct.");
+//    else Serial.println("MHI main loop status - correct.");
 #ifndef CONTINUE_WITHOUT_MQTT 
   }
 #endif
