@@ -19,6 +19,8 @@
 #define TOPIC_MODE "Mode"
 #define TOPIC_FAN "Fan"
 #define TOPIC_VANES "Vanes"
+#define TOPIC_VANESLR "VanesLR"
+#define TOPIC_3DAUTO "3Dauto"
 #define TOPIC_TROOM "Troom"
 #define TOPIC_TSETPOINT "Tsetpoint"
 #define TOPIC_ERRORCODE "Errorcode"
@@ -67,6 +69,9 @@
 #define PAYLOAD_OP_DEFROST_ON "on"
 #define PAYLOAD_OP_DEFROST_OFF "off"
 #define PAYLOAD_REQUEST_RESET "reset"
+#define PAYLOAD_VANESLR_SWING "swing"
+#define PAYLOAD_3DAUTO_ON "on"
+#define PAYLOAD_3DAUTO_OFF "off"
 
 enum POWER_STATUS {
     unknown,

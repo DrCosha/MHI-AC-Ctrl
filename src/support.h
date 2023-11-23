@@ -4,7 +4,7 @@
 #include "MHI-AC-Ctrl.h"
 #include "local.h"
 
-#define VERSION "2.7R4"
+#define VERSION "2.8D1"
 
 #ifndef LOCAL_SECRETS
 
@@ -17,11 +17,10 @@
 #define HOSTNAME "MHI_host_name"
 #define MQTT_PREFIX "HOME_AC_GROUP/" HOSTNAME "/"   // basic prefix used for publishing AC data (e.g. for status),
                                                     // replace "/" by e.g. "/Living-Room/" when you have multiple ACs
-
 #endif
 
 #define WiFI_SEARCHStrongestAP true                 // when false then the first WiFi access point with matching SSID found is used.
-                                                    // when true then the strongest WiFi access point with matching SSID found is used, it doesn't work with hidden SSID                                                
+													// when true then the strongest WiFi access point with matching SSID found is used, it doesn't work with hidden SSID                                                
 #define WiFI_SEARCH_FOR_STRONGER_AP_INTERVALL 12    // WiFi network re-scan interval in minutes with alternate to +5dB stronger signal if detected
 #define MQTT_SET_PREFIX MQTT_PREFIX "set/"          // prefix for subscribing set commands, must end with a "/"
 #define MQTT_OP_PREFIX MQTT_PREFIX "OpData/"        // prefix for publishing operating data, must end with a "/"
@@ -38,7 +37,7 @@
 #define ROOM_TEMP_MQTT_SET_TIMEOUT  40              // time in seconds, after this time w/o receiving a valid room temperature
                                                     // via MQTT fallback to IU temperature sensor value
 
-#define POWERON_WHEN_CHANGING_MODE true           // uncomment it to switch on the AC when the mode (heat, cool, dry etc.) is changed
+#define POWERON_WHEN_CHANGING_MODE true             // uncomment it to switch on the AC when the mode (heat, cool, dry etc.) is changed
                                                     // used e.g. for home assistant support
 
 #define TROOM_FILTER_LIMIT 0.25                     // Defines from which Troom delta value a new Troom value is pubslised. Resolution 0.25°C.
@@ -49,6 +48,8 @@
 //#define CONTINUE_WITHOUT_MQTT true                  // uncomment if communication with AC has to continue when MQTT or WiFi connection is disconnected.
                                                     // When Troom is supplied from external, it will fallback to AC internal Troom temperature sensor
                                                     // When ROOM_TEMP_DS18X20 is used, it will use room temperature from DS18x20
+//#define USE_EXTENDED_FRAME_SIZE true                // uncomment if you want to use de extended frame size (33) which is used by the WF-RAC module
+                                                    // Then it will be possible to get and set the 3D auto and vanes left/right
 
 
 
@@ -93,3 +94,5 @@ byte getDs18x20Temperature(int temp_hysterese);               // read the temper
 #define MQTT_NOT_CONNECTED 2
 #define MQTT_RECONNECTED 1
 #define MQTT_CONNECT_OK 0
+
+#define DS18X20_NOT_CONNECTED 1
