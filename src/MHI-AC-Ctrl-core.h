@@ -137,10 +137,10 @@ class MHI_AC_Ctrl_Core {
     CallbackInterface_Status *m_cbiStatus;
 
   public:
+
     void MHIAcCtrlStatus(CallbackInterface_Status *cb) {
       m_cbiStatus = cb;
     };
-
 
     void init();                          // initialization called once after boot
     void reset_old_values();              // resets the 'old' variables ensuring that all status information are resend

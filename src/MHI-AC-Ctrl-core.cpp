@@ -251,6 +251,10 @@ int MHI_AC_Ctrl_Core::loop(uint max_time_ms) {
       else {
         m_cbiStatus->cbiStatusFunction(status_vanes, (vanestmp & 0x03) + 1);
       }
+
+// TODO: выводим отладку в MQTT топик
+      m_cbiStatus->cbiStatusFunction(status_vanes, vanestmp);
+      
       status_vanes_old = vanestmp;
     }
 
