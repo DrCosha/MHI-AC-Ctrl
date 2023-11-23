@@ -17,6 +17,7 @@ bool troom_was_set_by_DS18X20 = false;
 void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int length) {
   payload[length] = 0;  // we need a string
   Serial.printf_P(PSTR("MQTT_subscribe_callback, topic=%s payload=%s payload_length=%i\n"), topic, (char*)payload, length);
+
 #ifndef POWERON_WHEN_CHANGING_MODE
   if (strcmp_P(topic, PSTR(MQTT_SET_PREFIX TOPIC_POWER)) == 0) {
     if (strcmp_P((char*)payload, PSTR(PAYLOAD_POWER_ON)) == 0) {
@@ -32,6 +33,7 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
   }
   else 
 #endif
+
   if (strcmp_P(topic, PSTR(MQTT_SET_PREFIX TOPIC_MODE)) == 0) {
 
 #ifdef POWERON_WHEN_CHANGING_MODE
@@ -196,7 +198,9 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
       publish_reset_preset();
       delay(500);
       ESP.restart();
-    }
+    } else
+      publish_cmd_invalidparameter();	
+  }
   // добавляем обработку пресетов   
   else if (strcmp_P(topic, PSTR(MQTT_SET_PREFIX TOPIC_PRESET)) == 0) {
     // обрабатываем пресеты 
@@ -296,9 +300,6 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
     else
       publish_cmd_invalidparameter();  // если прислали неопределенный пресет
     }  // --------------- конец обработки пресетов  
-    else
-      publish_cmd_invalidparameter();
-  }
   else
     publish_cmd_unknown();
 }
