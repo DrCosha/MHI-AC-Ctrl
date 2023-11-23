@@ -20,6 +20,10 @@ void MHI_AC_Ctrl_Core::reset_old_values() {  // used e.g. when MQTT connection t
   status_tsetpoint_old = 0x00;
   status_errorcode_old = 0xff;
 
+  // old debug values
+  debug_frame_DB0 = 0xff;
+  debug_frame_DB1 = 0xff;
+
   // old operating data
   op_kwh_old = 0xffff;
   op_mode_old = 0xff;
@@ -251,18 +255,18 @@ int MHI_AC_Ctrl_Core::loop(uint max_time_ms) {
       else {
         m_cbiStatus->cbiStatusFunction(status_vanes, (vanestmp & 0x03) + 1);
       }
-
-// TODO: выводим отладку в MQTT топик
-
-      m_cbiStatus->cbiStatusFunction(debug_rawdata, MOSI_frame[DB0]);
-      m_cbiStatus->cbiStatusFunction(debug_rawdata, MOSI_frame[DB1]);
-      m_cbiStatus->cbiStatusFunction(status_errorcode, vanestmp);
-
-//
-
       status_vanes_old = vanestmp;
     }
 
+#ifdef DEBUG_INTO_TOPIC    // TODO: выводим отладку в MQTT топик
+
+    if ((MOSI_frame[DB0] != debug_frame_DB0 ) or (MOSI_frame[DB1] != debug_frame_DB1 )) {
+      m_cbiStatus->cbiStatusFunction(debug_rawdata, MOSI_frame[DB0]);
+      m_cbiStatus->cbiStatusFunction(debug_rawdata, MOSI_frame[DB1]);
+      m_cbiStatus->cbiStatusFunction(status_errorcode, vanestmp);
+    }
+    
+#endif
     
     if(MOSI_frame[DB3] != status_troom_old) {
       // To avoid jitter with the fast changing AC internal temperature sensor

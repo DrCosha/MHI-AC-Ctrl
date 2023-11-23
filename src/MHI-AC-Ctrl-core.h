@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+#define DEBUG_INTO_TOPIC
+
 // comment out the data you are not interested, but at least leave one row !
 const byte opdata[][2] PROGMEM = {
   { 0xc0, 0x02},  //  1 "MODE"
@@ -100,6 +102,10 @@ class MHI_AC_Ctrl_Core {
     byte status_troom_old;
     byte status_tsetpoint_old;
     byte status_errorcode_old;
+
+    // old debug data
+    byte debug_frame_DB0;
+    byte debug_frame_DB1;
 
     // old operating data
     uint16_t op_kwh_old;

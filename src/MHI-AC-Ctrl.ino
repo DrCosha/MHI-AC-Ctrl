@@ -258,18 +258,17 @@ class StatusHandler : public CallbackInterface_Status {
           }
           break;
         case status_vanes:
-// TODO:  разбираемся с текущими значениями для кондиционера SRK20ZS-W
-//          switch (value) {
-//            case vanes_unknown:
-//              output_P(status, PSTR(TOPIC_VANES), PSTR(PAYLOAD_VANES_UNKNOWN));
-//              break;
-//            case vanes_swing:
-//              output_P(status, PSTR(TOPIC_VANES), PSTR(PAYLOAD_VANES_SWING));
-//              break;
-//            default:
+          switch (value) {
+            case vanes_unknown:
+              output_P(status, PSTR(TOPIC_VANES), PSTR(PAYLOAD_VANES_UNKNOWN));
+              break;
+            case vanes_swing:
+              output_P(status, PSTR(TOPIC_VANES), PSTR(PAYLOAD_VANES_SWING));
+              break;
+            default:
               itoa(value, strtmp, 10);
               output_P(status, PSTR(TOPIC_VANES), strtmp);
-//          }
+          }
           break;
         case status_troom:
           {
@@ -292,16 +291,12 @@ class StatusHandler : public CallbackInterface_Status {
           dtostrf((value & 0x7f)/ 2.0, 0, 1, strtmp);
           output_P(status, PSTR(TOPIC_TSETPOINT), strtmp);
           break;
-
-// TODO: выводим отладочную информацию при обмене с AC          
-
-        case debug_rawdata:
+        case debug_rawdata: // выводим отладочную информацию при обмене с AC                
+#ifdef DEBUG_INTO_TOPIC  
           itoa(value, strtmp, 2);
           output_P(status, PSTR(TOPIC_RAWDATE), strtmp);
+#endif                  
           break;
-          
-// ----------------------------------------------------
-
         case status_errorcode:
         case erropdata_errorcode:
           itoa(value, strtmp, 10);
