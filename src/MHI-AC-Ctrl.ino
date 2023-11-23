@@ -292,10 +292,12 @@ class StatusHandler : public CallbackInterface_Status {
           dtostrf((value & 0x7f)/ 2.0, 0, 1, strtmp);
           output_P(status, PSTR(TOPIC_TSETPOINT), strtmp);
           break;
+
 // TODO: выводим отладочную информацию при обмене с AC          
+
         case debug_rawdata:
           itoa(value, strtmp, 2);
-          output_P(status, PSTR(TOPIC_ERRORCODE), strtmp);
+          output_P(status, PSTR(TOPIC_RAWDATE), strtmp);
           break;
 
         case status_errorcode:
