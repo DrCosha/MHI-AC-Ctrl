@@ -328,8 +328,10 @@ int MHI_AC_Ctrl_Core::loop(uint max_time_ms) {
 #ifdef DEBUG_INTO_TOPIC    // TODO: выводим отладку в MQTT топик
 
     if ((MOSI_frame[DB0] != debug_frame_DB0 ) or (MOSI_frame[DB1] != debug_frame_DB1 )) {
-      m_cbiStatus->cbiStatusFunction(debug_rawdata, MOSI_frame[DB0]);
-      m_cbiStatus->cbiStatusFunction(debug_rawdata, MOSI_frame[DB1]);
+      debug_frame_DB0 = MOSI_frame[DB0];
+      debug_frame_DB1 = MOSI_frame[DB1];
+      m_cbiStatus->cbiStatusFunction(debug_rawdata, debug_frame_DB0);
+      m_cbiStatus->cbiStatusFunction(debug_rawdata, debug_frame_DB1);
       m_cbiStatus->cbiStatusFunction(status_errorcode, vanestmp);
     }
     
