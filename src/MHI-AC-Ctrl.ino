@@ -122,7 +122,7 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
         publish_cmd_invalidparameter();
     }
   }
-#ifdef USE_EXTENDED_FRAME_SIZE  
+#ifdef USE_EXT_FRAME_SIZE  
   else if (strcmp_P(topic, PSTR(MQTT_SET_PREFIX TOPIC_VANESLR)) == 0) {
     if (strcmp_P((char*)payload, PSTR(PAYLOAD_VANESLR_SWING)) == 0) {
       mhi_ac_ctrl_core.set_vanesLR(vanesLR_swing);
@@ -215,6 +215,7 @@ class StatusHandler : public CallbackInterface_Status {
           if (value == power_on){
             output_P(status, (TOPIC_POWER), PSTR(PAYLOAD_POWER_ON));
             power_status = on;
+
 #ifdef POWERON_WHEN_CHANGING_MODE
             cbiStatusFunction(status_mode, mode_tmp);
 #endif
@@ -222,12 +223,14 @@ class StatusHandler : public CallbackInterface_Status {
           else {
             output_P(status, (TOPIC_POWER), (PAYLOAD_POWER_OFF));
             power_status = off;
+
 #ifdef POWERON_WHEN_CHANGING_MODE
             output_P(status, PSTR(TOPIC_MODE), PSTR(PAYLOAD_MODE_OFF));
 #endif
           }
           break;
         case status_mode:
+
 #ifdef POWERON_WHEN_CHANGING_MODE        
           mode_tmp = value;
 #endif          
@@ -299,7 +302,9 @@ class StatusHandler : public CallbackInterface_Status {
               output_P(status, PSTR(TOPIC_VANES), strtmp);
           }
           break;
-#ifdef USE_EXTENDED_FRAME_SIZE            
+
+#ifdef USE_EXT_FRAME_SIZE 
+
         case status_vanesLR:
           switch (value) {
             case vanesLR_swing:
@@ -471,7 +476,7 @@ void setup() {
   MQTTclient.setCallback(MQTT_subscribe_callback);
   mhi_ac_ctrl_core.MHIAcCtrlStatus(&mhiStatusHandler);
   mhi_ac_ctrl_core.init();
-#ifdef USE_EXTENDED_FRAME_SIZE    
+#ifdef USE_EXT_FRAME_SIZE    
   mhi_ac_ctrl_core.set_frame_size(33); // switch to framesize 33 (like WF-RAC). Only 20 or 33 possible
 #endif  
   // mhi_ac_ctrl_core.set_fan(7); // set fan AUTO, see https://github.com/absalom-muc/MHI-AC-Ctrl/issues/99
@@ -479,7 +484,10 @@ void setup() {
 
 
 void loop() {
+#if TEMP_MEASURE_PERIOD > 0  
   static byte ds18x20_value_old = 0;
+#endif
+
   static int WiFiStatus = WIFI_CONNECT_TIMEOUT;   // start connecting to WiFi
   static int MQTTStatus = MQTT_NOT_CONNECTED;
   static unsigned long previousMillis = millis();
