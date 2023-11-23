@@ -76,15 +76,15 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
       else
         publish_cmd_invalidparameter();
   }
-  else if (strcmp_P(topic, PSTR(MQTT_SET_PREFIX TOPIC_TSETPOINT)) == 0) {
+  else if (strcmp_P(topic, PSTR(MQTT_SET_PREFIX TOPIC_TSETPOINT)) == 0) {     // установка температуры Tsetpoint
     float f=atof((char*)payload);
     if((f >= 18) & (f <= 30))
       mhi_ac_ctrl_core.set_tsetpoint((byte)(2 * f));
     else
       publish_cmd_invalidparameter();
   }
-  else if (strcmp_P(topic, PSTR(MQTT_SET_PREFIX TOPIC_FAN)) == 0) {
-    if (strcmp_P((char*)payload, PAYLOAD_FAN_AUTO) == 0){
+  else if (strcmp_P(topic, PSTR(MQTT_SET_PREFIX TOPIC_FAN)) == 0) {           // установка состояния горизонтальных шторок (Vanes)
+    if (strcmp_P((char*)payload, PAYLOAD_FAN_AUTO) == 0){                     // установка по параметру "auto"
       mhi_ac_ctrl_core.set_fan(7);
       publish_cmd_ok();
     }
@@ -258,17 +258,18 @@ class StatusHandler : public CallbackInterface_Status {
           }
           break;
         case status_vanes:
-          switch (value) {
-            case vanes_unknown:
-              output_P(status, PSTR(TOPIC_VANES), PSTR(PAYLOAD_VANES_UNKNOWN));
-              break;
-            case vanes_swing:
-              output_P(status, PSTR(TOPIC_VANES), PSTR(PAYLOAD_VANES_SWING));
-              break;
-            default:
+// TODO:  разбираемся с текущими значениями для кондиционера SRK20ZS-W
+//          switch (value) {
+//            case vanes_unknown:
+//              output_P(status, PSTR(TOPIC_VANES), PSTR(PAYLOAD_VANES_UNKNOWN));
+//              break;
+//            case vanes_swing:
+//              output_P(status, PSTR(TOPIC_VANES), PSTR(PAYLOAD_VANES_SWING));
+//              break;
+//            default:
               itoa(value, strtmp, 10);
               output_P(status, PSTR(TOPIC_VANES), strtmp);
-          }
+//          }
           break;
         case status_troom:
           {
