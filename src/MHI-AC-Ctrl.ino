@@ -229,7 +229,7 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
       mhi_ac_ctrl_core.set_mode(mode_cool);                 // Авто режим
       mhi_ac_ctrl_core.set_fan(0);                          // вентилятор на минимум
       mhi_ac_ctrl_core.set_3Dauto(Dauto_off);               // не отслеживаем перемещения
-      mhi_ac_ctrl_core.set_vanesLR(7);                      // горизонтальные створки максимально в стороны
+      mhi_ac_ctrl_core.set_vanesLR(6);                      // горизонтальные створки максимально в стороны
       mhi_ac_ctrl_core.set_vanes(1);                        // вертикальные створки максимально вверх
       // N.B. Температуру задаем в 26', но можно ее поправить отдельно
       float f=26;
