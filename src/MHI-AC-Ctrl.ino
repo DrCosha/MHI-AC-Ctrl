@@ -209,19 +209,14 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
       mhi_ac_ctrl_core.set_power(power_on);
 #endif
       // устанавливаем данные для пресета ECO
-      mhi_ac_ctrl_core.set_mode(mode_auto);                 // Авто режим
+      mhi_ac_ctrl_core.set_mode(mode_cool);                 // Авто режим
       mhi_ac_ctrl_core.set_fan(0);                          // вентилятор на минимум
       mhi_ac_ctrl_core.set_3Dauto(Dauto_off);               // не отслеживаем перемещения
       mhi_ac_ctrl_core.set_vanesLR(3);                      // горизонтальные створки в центр
       mhi_ac_ctrl_core.set_vanes(2);                        // вертикальные створки в middle-up
       // N.B. Температуру задаем в 24', но можно ее поправить отдельно
       float f=24;
-#ifdef ENHANCED_RESOLUTION
-    f = f + mhi_ac_ctrl_core.get_troom_offset() ;  // increase Troom with current offset to compensate higher setpoint
-#endif
-      room_temp_set_timeout_Millis = millis();  // reset timeout
-      troom_was_set_by_MQTT=true;
-      mhi_ac_ctrl_core.set_troom(f*4+61);     
+      mhi_ac_ctrl_core.set_tsetpoint((byte)(2 * f));     
       // -------------------------------------------------- 
       publish_cmd_ok();
       output_P((ACStatus)type_status, PSTR(TOPIC_PRESET), PSTR(PAYLOAD_PRESET_ECO));
@@ -231,19 +226,14 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
       mhi_ac_ctrl_core.set_power(power_on);
 #endif
       // устанавливаем данные для пресета SLEEP
-      mhi_ac_ctrl_core.set_mode(mode_auto);                 // Авто режим
+      mhi_ac_ctrl_core.set_mode(mode_cool);                 // Авто режим
       mhi_ac_ctrl_core.set_fan(0);                          // вентилятор на минимум
       mhi_ac_ctrl_core.set_3Dauto(Dauto_off);               // не отслеживаем перемещения
       mhi_ac_ctrl_core.set_vanesLR(7);                      // горизонтальные створки максимально в стороны
       mhi_ac_ctrl_core.set_vanes(1);                        // вертикальные створки максимально вверх
       // N.B. Температуру задаем в 26', но можно ее поправить отдельно
       float f=26;
-#ifdef ENHANCED_RESOLUTION
-    f = f + mhi_ac_ctrl_core.get_troom_offset() ;  // increase Troom with current offset to compensate higher setpoint
-#endif
-      room_temp_set_timeout_Millis = millis();  // reset timeout
-      troom_was_set_by_MQTT=true;
-      mhi_ac_ctrl_core.set_troom(f*4+61);     
+      mhi_ac_ctrl_core.set_tsetpoint((byte)(2 * f));     
       // -------------------------------------------------- 
       publish_cmd_ok();
       output_P((ACStatus)type_status, PSTR(TOPIC_PRESET), PSTR(PAYLOAD_PRESET_SLEEP));
@@ -253,19 +243,14 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
       mhi_ac_ctrl_core.set_power(power_on);
 #endif
       // устанавливаем данные для пресета COMFORT
-      mhi_ac_ctrl_core.set_mode(mode_auto);                 // Авто режим
+      mhi_ac_ctrl_core.set_mode(mode_cool);                 // Авто режим
       mhi_ac_ctrl_core.set_fan(7);                          // вентилятор в авто режим
       mhi_ac_ctrl_core.set_3Dauto(Dauto_on);                // отслеживаем перемещения
       mhi_ac_ctrl_core.set_vanesLR(vanesLR_swing);          // горизонтальные створки в качалку
       mhi_ac_ctrl_core.set_vanes(vanes_swing);              // вертикальные створки в качалку
       // N.B. Температуру задаем в 25', но можно ее поправить отдельно
       float f=25;
-#ifdef ENHANCED_RESOLUTION
-    f = f + mhi_ac_ctrl_core.get_troom_offset() ;  // increase Troom with current offset to compensate higher setpoint
-#endif
-      room_temp_set_timeout_Millis = millis();  // reset timeout
-      troom_was_set_by_MQTT=true;
-      mhi_ac_ctrl_core.set_troom(f*4+61);     
+      mhi_ac_ctrl_core.set_tsetpoint((byte)(2 * f));
       // -------------------------------------------------- 
       publish_cmd_ok();
       output_P((ACStatus)type_status, PSTR(TOPIC_PRESET), PSTR(PAYLOAD_PRESET_COMFORT));
@@ -282,12 +267,7 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
       mhi_ac_ctrl_core.set_vanes(vanes_swing);              // вертикальные створки в качалку
       // N.B. Температуру задаем в 24', но можно ее поправить отдельно
       float f=24;
-#ifdef ENHANCED_RESOLUTION
-    f = f + mhi_ac_ctrl_core.get_troom_offset() ;  // increase Troom with current offset to compensate higher setpoint
-#endif
-      room_temp_set_timeout_Millis = millis();  // reset timeout
-      troom_was_set_by_MQTT=true;
-      mhi_ac_ctrl_core.set_troom(f*4+61);     
+      mhi_ac_ctrl_core.set_tsetpoint((byte)(2 * f));
       // -------------------------------------------------- 
       publish_cmd_ok();
       output_P((ACStatus)type_status, PSTR(TOPIC_PRESET), PSTR(PAYLOAD_PRESET_BOOST));      
