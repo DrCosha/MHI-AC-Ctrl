@@ -253,8 +253,13 @@ int MHI_AC_Ctrl_Core::loop(uint max_time_ms) {
       }
 
 // TODO: выводим отладку в MQTT топик
-      m_cbiStatus->cbiStatusFunction(status_vanes, vanestmp);
-      
+
+      m_cbiStatus->cbiStatusFunction(debug_rawdata, MOSI_frame[DB0]);
+      m_cbiStatus->cbiStatusFunction(debug_rawdata, MOSI_frame[DB1]);
+      m_cbiStatus->cbiStatusFunction(status_errorcode, vanestmp);
+
+//
+
       status_vanes_old = vanestmp;
     }
 

@@ -22,7 +22,7 @@
 #define TOPIC_TROOM "Troom"
 #define TOPIC_TSETPOINT "Tsetpoint"
 #define TOPIC_ERRORCODE "Errorcode"
-
+#define TOPIC_RAWDATE "RAWData"
 #define TOPIC_UNKNOWN "unknown"
 #define TOPIC_KWH "KWH"
 #define TOPIC_RETURNAIR "RETURN-AIR"

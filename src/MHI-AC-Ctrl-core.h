@@ -69,7 +69,7 @@ enum ACStatus { // Status enum
   opdata_tdsh, opdata_protection_no, opdata_defrost, opdata_ou_eev1, opdata_unknown,
   erropdata_mode = type_erropdata, erropdata_tsetpoint, erropdata_return_air, erropdata_thi_r1, erropdata_thi_r2, erropdata_thi_r3,
   erropdata_iu_fanspeed, erropdata_total_iu_run, erropdata_outdoor, erropdata_tho_r1, erropdata_comp, erropdata_td, erropdata_ct, erropdata_ou_fanspeed,
-  erropdata_total_comp_run, erropdata_ou_eev1, erropdata_errorcode
+  erropdata_total_comp_run, erropdata_ou_eev1, erropdata_errorcode, debug_rawdata
 };
 
 
