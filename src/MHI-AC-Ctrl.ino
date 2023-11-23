@@ -299,6 +299,8 @@ class StatusHandler : public CallbackInterface_Status {
           itoa(value, strtmp, 2);
           output_P(status, PSTR(TOPIC_RAWDATE), strtmp);
           break;
+          
+// ----------------------------------------------------
 
         case status_errorcode:
         case erropdata_errorcode:
@@ -309,7 +311,7 @@ class StatusHandler : public CallbackInterface_Status {
         case erropdata_return_air:
           dtostrf((value - 61) / 4.0, 0, 2, strtmp);
           output_P(status, PSTR(TOPIC_RETURNAIR), strtmp);
-          break;
+          break;          
         case opdata_thi_r1:
         case erropdata_thi_r1:
           itoa(0.327f * value - 11.4f, strtmp, 10); // only rough approximation
