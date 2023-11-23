@@ -206,6 +206,11 @@ int MQTTreconnect() {
 void publish_cmd_ok() {
   output_P((ACStatus)type_status, PSTR(TOPIC_CMD_RECEIVED), PSTR(PAYLOAD_CMD_OK));
 }
+
+void publish_reset_preset() {
+  output_P((ACStatus)type_status, PSTR(TOPIC_PRESET), PSTR(PAYLOAD_PRESET_NONE));  
+}
+
 void publish_cmd_unknown() {
   output_P((ACStatus)type_status, PSTR(TOPIC_CMD_RECEIVED), PSTR(PAYLOAD_CMD_UNKNOWN));
 }

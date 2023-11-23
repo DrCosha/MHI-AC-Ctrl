@@ -25,6 +25,7 @@
 #define TOPIC_TSETPOINT "Tsetpoint"
 #define TOPIC_ERRORCODE "Errorcode"
 #define TOPIC_RAWDATE "RAWData"
+#define TOPIC_PRESET "Preset"
 #define TOPIC_UNKNOWN "unknown"
 #define TOPIC_KWH "KWH"
 #define TOPIC_RETURNAIR "RETURN-AIR"
@@ -47,6 +48,7 @@
 
 #define TOPIC_REQUEST_ERROPDATA "ErrOpData"
 #define TOPIC_REQUEST_RESET "reset"
+
 
 // MQTT payload text
 #define PAYLOAD_CONNECTED_TRUE "1"
@@ -72,6 +74,11 @@
 #define PAYLOAD_VANESLR_SWING "swing"
 #define PAYLOAD_3DAUTO_ON "on"
 #define PAYLOAD_3DAUTO_OFF "off"
+#define PAYLOAD_PRESET_NONE "manual"
+#define PAYLOAD_PRESET_ECO "eco"
+#define PAYLOAD_PRESET_SLEEP "sleep"
+#define PAYLOAD_PRESET_COMFORT "comfort"
+#define PAYLOAD_PRESET_BOOST "boost"
 
 enum POWER_STATUS {
     unknown,

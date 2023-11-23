@@ -77,6 +77,7 @@ void initWiFi();                                              // basic WiFi init
 void setupWiFi(int& WiFiStatus);                              // setup WIFi connection to AP
 int MQTTreconnect();                                          // (re)connect to MQTT broker
 void publish_cmd_ok();                                        // last MQTT cmd was o.k.
+void publish_reset_preset();                                  // обнуление пресета при установке значений руками   
 void publish_cmd_unknown();                                   // last MQTT cmd was unknown
 void publish_cmd_invalidparameter();                          // a paramter of the last MQTT was wrong
 void output_P(ACStatus status, PGM_P topic, PGM_P payload);   // publish via MQTT

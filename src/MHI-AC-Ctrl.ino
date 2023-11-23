@@ -33,18 +33,23 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
   else 
 #endif
   if (strcmp_P(topic, PSTR(MQTT_SET_PREFIX TOPIC_MODE)) == 0) {
+
 #ifdef POWERON_WHEN_CHANGING_MODE
     if (strcmp_P((char*)payload, PSTR(PAYLOAD_POWER_OFF)) == 0) {
       mhi_ac_ctrl_core.set_power(power_off);
       publish_cmd_ok();
+      publish_reset_preset();
     } else
 #endif
+
       if (strcmp_P((char*)payload, PSTR(PAYLOAD_MODE_AUTO)) == 0) {
         mhi_ac_ctrl_core.set_mode(mode_auto);
+
 #ifdef POWERON_WHEN_CHANGING_MODE
         mhi_ac_ctrl_core.set_power(power_on);
 #endif
         publish_cmd_ok();
+        publish_reset_preset();
       }
       else if (strcmp_P((char*)payload, PSTR(PAYLOAD_MODE_DRY)) == 0) {
         mhi_ac_ctrl_core.set_mode(mode_dry);
@@ -52,6 +57,7 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
         mhi_ac_ctrl_core.set_power(power_on);
 #endif
         publish_cmd_ok();
+        publish_reset_preset();
       }
       else if (strcmp_P((char*)payload, PSTR(PAYLOAD_MODE_COOL)) == 0) {
         mhi_ac_ctrl_core.set_mode(mode_cool);
@@ -59,6 +65,7 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
         mhi_ac_ctrl_core.set_power(power_on);
 #endif
         publish_cmd_ok();
+        publish_reset_preset();
       }
       else if (strcmp_P((char*)payload, PSTR(PAYLOAD_MODE_FAN)) == 0) {
         mhi_ac_ctrl_core.set_mode(mode_fan);
@@ -66,6 +73,7 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
         mhi_ac_ctrl_core.set_power(power_on);
 #endif
         publish_cmd_ok();
+        publish_reset_preset();
       }
       else if (strcmp_P((char*)payload, PSTR(PAYLOAD_MODE_HEAT)) == 0) {
         mhi_ac_ctrl_core.set_mode(mode_heat);
@@ -73,6 +81,7 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
         mhi_ac_ctrl_core.set_power(power_on);
 #endif
         publish_cmd_ok();
+        publish_reset_preset();
       }
       else
         publish_cmd_invalidparameter();
@@ -88,22 +97,27 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
     if (strcmp_P((char*)payload, PAYLOAD_FAN_AUTO) == 0){
       mhi_ac_ctrl_core.set_fan(7);
       publish_cmd_ok();
+      publish_reset_preset();
     }
     else if (strcmp_P((char*)payload, "1") == 0){
       mhi_ac_ctrl_core.set_fan(0);
       publish_cmd_ok();
+      publish_reset_preset();
     }
     else if (strcmp_P((char*)payload, "2") == 0){
       mhi_ac_ctrl_core.set_fan(1);
       publish_cmd_ok();
+      publish_reset_preset();
     }
     else if (strcmp_P((char*)payload, "3") == 0){
       mhi_ac_ctrl_core.set_fan(2);
       publish_cmd_ok();
+      publish_reset_preset();
     }
     else if (strcmp_P((char*)payload, "4") == 0){
       mhi_ac_ctrl_core.set_fan(6);
       publish_cmd_ok();
+      publish_reset_preset();
     }
     else
       publish_cmd_invalidparameter();
@@ -112,11 +126,13 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
     if (strcmp_P((char*)payload, PSTR(PAYLOAD_VANES_SWING)) == 0) {
       mhi_ac_ctrl_core.set_vanes(vanes_swing);
       publish_cmd_ok();
+      publish_reset_preset();
     }
     else {
       if ((atoi((char*)payload) >= 1) & (atoi((char*)payload) <= 5)) {
         mhi_ac_ctrl_core.set_vanes(atoi((char*)payload));
         publish_cmd_ok();
+        publish_reset_preset();
       }
       else
         publish_cmd_invalidparameter();
@@ -127,11 +143,13 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
     if (strcmp_P((char*)payload, PSTR(PAYLOAD_VANESLR_SWING)) == 0) {
       mhi_ac_ctrl_core.set_vanesLR(vanesLR_swing);
       publish_cmd_ok();
+      publish_reset_preset();
     }
     else {
       if ((atoi((char*)payload) >= 1) & (atoi((char*)payload) <= 7)) {
         mhi_ac_ctrl_core.set_vanesLR(atoi((char*)payload));
         publish_cmd_ok();
+        publish_reset_preset();
       }
       else
         publish_cmd_invalidparameter();
@@ -141,10 +159,12 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
     if (strcmp_P((char*)payload, PSTR(PAYLOAD_3DAUTO_ON)) == 0) {
       mhi_ac_ctrl_core.set_3Dauto(Dauto_on);
       publish_cmd_ok();
+      publish_reset_preset();
     }
     else if (strcmp_P((char*)payload, PSTR(PAYLOAD_3DAUTO_OFF)) == 0) {
       mhi_ac_ctrl_core.set_3Dauto(Dauto_off);
       publish_cmd_ok();
+      publish_reset_preset();
     }
     else
       publish_cmd_invalidparameter();
@@ -162,6 +182,7 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
       mhi_ac_ctrl_core.set_troom(f*4+61);
       Serial.printf("ROOM_TEMP_MQTT: %f %i %i\n", f, (byte)(f*4+61), (byte)tmp);
       publish_cmd_ok();
+      publish_reset_preset();
     }
     else
       publish_cmd_invalidparameter();
@@ -173,9 +194,69 @@ void MQTT_subscribe_callback(const char* topic, byte* payload, unsigned int leng
   else if (strcmp_P(topic, PSTR(MQTT_SET_PREFIX TOPIC_REQUEST_RESET)) == 0) {
     if (strcmp_P((char*)payload, PSTR(PAYLOAD_REQUEST_RESET)) == 0) {
       publish_cmd_ok();
+      publish_reset_preset();
       delay(500);
       ESP.restart();
     }
+  // добавляем обработку пресетов   
+  else if (strcmp_P(topic, PSTR(MQTT_SET_PREFIX TOPIC_PRESET)) == 0) {
+    // обрабатываем пресеты 
+    if (strcmp_P((char*)payload, PAYLOAD_PRESET_ECO) == 0){
+      // устанавливаем данные для пресета ECO
+
+      // TODO: PRESET_ECO
+
+      // -------------------------------------------------- 
+#ifdef POWERON_WHEN_CHANGING_MODE
+      mhi_ac_ctrl_core.set_power(power_on);
+#endif
+      publish_cmd_ok();
+      output_P((ACStatus)type_status, PSTR(TOPIC_PRESET), PSTR(PAYLOAD_PRESET_ECO));
+    }
+    else if (strcmp_P((char*)payload, PAYLOAD_PRESET_SLEEP) == 0){
+      // устанавливаем данные для пресета SLEEP
+
+      // TODO: PRESET_SLEEP
+
+      // -------------------------------------------------- 
+#ifdef POWERON_WHEN_CHANGING_MODE
+      mhi_ac_ctrl_core.set_power(power_on);
+#endif
+      publish_cmd_ok();
+      output_P((ACStatus)type_status, PSTR(TOPIC_PRESET), PSTR(PAYLOAD_PRESET_SLEEP));
+    }
+    else if (strcmp_P((char*)payload, PAYLOAD_PRESET_COMFORT) == 0){
+      // устанавливаем данные для пресета COMFORT
+
+      // TODO: PRESET_COMFORT
+
+      // -------------------------------------------------- 
+#ifdef POWERON_WHEN_CHANGING_MODE
+      mhi_ac_ctrl_core.set_power(power_on);
+#endif
+      publish_cmd_ok();
+      output_P((ACStatus)type_status, PSTR(TOPIC_PRESET), PSTR(PAYLOAD_PRESET_COMFORT));
+    }
+    else if (strcmp_P((char*)payload, PAYLOAD_PRESET_BOOST) == 0){
+      // устанавливаем данные для пресета BOOST
+
+      // TODO: PRESET_BOOST
+
+      // -------------------------------------------------- 
+#ifdef POWERON_WHEN_CHANGING_MODE
+      mhi_ac_ctrl_core.set_power(power_on);
+#endif
+      publish_cmd_ok();
+      output_P((ACStatus)type_status, PSTR(TOPIC_PRESET), PSTR(PAYLOAD_PRESET_BOOST));      
+    }
+    else if (strcmp_P((char*)payload, PAYLOAD_PRESET_NONE) == 0){
+      // устанавливаем данные для пресета NONE - т.е. ничего не делаем
+      publish_cmd_ok();
+      publish_reset_preset();
+    }
+    else
+      publish_cmd_invalidparameter();  // если прислали неопределенный пресет
+    }  // --------------- конец обработки пресетов  
     else
       publish_cmd_invalidparameter();
   }
