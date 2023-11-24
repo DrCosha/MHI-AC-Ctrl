@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-#define DEBUG_INTO_TOPIC
+// #define DEBUG_INTO_TOPIC
 
 // comment out the data you are not interested, but at least leave one row !
 const byte opdata[][2] PROGMEM = {
